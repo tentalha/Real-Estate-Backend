@@ -4,7 +4,7 @@ const app = express();
 
 require('./db/dbConfig'); // Importing database connection file to entry point.
 
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
     res.send('<h1>Hello, World!</h1>')
 })
 
