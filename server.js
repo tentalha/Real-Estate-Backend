@@ -1,16 +1,15 @@
 const express = require("express");
-
+require('dotenv').config();
 const app = express();
 
-function middleWare(req, res, next) {
-    console.log("Middleware Ran");
-    next()
-}
+require('./db/dbConfig'); // Importing database connection file to entry point.
 
-app.get('/', middleWare, (req, res) => {
+app.get('/', (req, res) => {
     res.send('<h1>Hello, World!</h1>')
 })
 
-app.listen(PORT = 8080, () => {
+const PORT = process.env.PORT || 4000
+
+app.listen(PORT, () => {
     console.log(`Server running at port ${PORT}!`);
 })
