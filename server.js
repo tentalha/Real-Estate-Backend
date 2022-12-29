@@ -8,6 +8,10 @@ app.get('/hello', (req, res) => {
     res.send('<h1>Hello, World!</h1>')
 })
 
+app.get('/', (req, res) => {
+    res.send('<h1>Hello, World!</h1>')
+})
+
 const PORT = process.env.PORT || 4000
 
 app.listen(PORT, () => {
