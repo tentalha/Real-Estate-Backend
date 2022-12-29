@@ -2,10 +2,11 @@
   "name": "real-estate",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./server.js"
+    "start": "nodemon — exec babel-node index.js",
+    "build": "babel index.js — out-file index-compiled.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +15,12 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "express-validator": "^6.14.2",
     "mongoose": "^6.8.1",
     "nodemon": "^2.0.20"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/preset-env": "^7.20.2"
   }
 }

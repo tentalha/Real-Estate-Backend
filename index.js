@@ -1,11 +1,12 @@
 const express = require("express");
+const R2XX = require("./api/R2XX");
 require('dotenv').config();
 const app = express();
 
 require('./db/dbConfig'); // Importing database connection file to entry point.
 
 app.get('/hello', (req, res) => {
-    res.send('<h1>Hello, World!</h1>')
+    R2XX(res, 200, "User found!", { name: "Talha" })
 })
 
 app.get('/', (req, res) => {
