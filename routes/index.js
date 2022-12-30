@@ -1,5 +1,7 @@
-const router = require('mongoose').Router;
+const router = require('express').Router();
 
-const userRouter = require('./userRoutes');
+const authRouter = require('./authRoutes');
 
-router.use(userRouter);
+router.use("/auth", authRouter);
+
+module.exports = router;
