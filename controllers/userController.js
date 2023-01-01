@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const R2XX = require("../api/R2XX");
 const R4XX = require("../api/R4XX");
+const generateJwt = require('../helpers/jwt');
 const User = require("../models/userModel")
 
 const login_user = async (req, res) => {
@@ -8,9 +9,10 @@ const login_user = async (req, res) => {
         const { email, password } = req.body;
         if (email && password) {
             const user = await User.findOne({ email });
-            const isAuthenticated = bcrypt.compareSync(password, user.password)
+            const isAuthenticated = bcrypt.compareSync(password, user.password);
             if (isAuthenticated) {
-                R2XX(res, 200, "Successfully Authenticated!");
+                const jwt = generateJwt({ sub: user._id })
+                R2XX(res, 200, "Successfully Authenticated!", { token: jwt });
             }
             else {
                 R4XX(res, 401, "PASSWORD-ERROR", "Authentication Error")
@@ -32,7 +34,8 @@ const register_user = async (req, res) => {
             const hashedPassword = bcrypt.hashSync(password, salt); //Hashing password and storing hashed password in DB.
             const newUser = new User({ name, email, password: hashedPassword });
             await newUser.save();
-            R2XX(res, 201, "registered successfully", { name, email })
+            const jwt = generateJwt({ sub: newUser._id }) //Sending the _id of the user in jwt token.
+            R2XX(res, 201, "registered successfully", { token: jwt })
         }
         else {
             R4XX(res, 400, "VALIDATION-ERROR", "Some required values in payload are missing")
